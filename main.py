@@ -44,7 +44,7 @@ if menu == "Beranda":
 
     st.markdown("""
     <div class="hero">
-        <h1>🚀 Selamat Datang di My Streamlit App</h1>
+        <h1>🚀 Selamat Datang di Ahmad Learning</h1>
         <p>Aplikasi berbasis Python & Streamlit untuk analisis data dan visualisasi interaktif.</p>
     </div>
     """, unsafe_allow_html=True)
