@@ -1,4 +1,30 @@
 import streamlit as st
+import pandas as pd
+import numpy as np
+
+# ==========================
+# Fungsi Generate Data
+# ==========================
+def generate_population_data(
+    start_year=2015,
+    end_year=2025,
+    initial_population=1000000
+):
+    years = list(range(start_year, end_year + 1))
+
+    population = [initial_population]
+
+    for _ in range(1, len(years)):
+        growth_rate = np.random.uniform(0.8, 2.5) / 100
+        next_population = int(population[-1] * (1 + growth_rate))
+        population.append(next_population)
+
+    df = pd.DataFrame({
+        "Tahun": years,
+        "Populasi": population
+    })
+
+    return df
 
 # Konfigurasi halaman
 st.set_page_config(
@@ -92,8 +118,38 @@ if menu == "Beranda":
 
 # Halaman Dashboard
 elif menu == "Dashboard":
-    st.title("📊 Dashboard")
-    st.write("Konten dashboard akan ditampilkan di sini.")
+    st.title("📊 Dashboard Populasi")
+
+    if st.button("Generate Data Populasi"):
+        df_pop = generate_population_data()
+
+        st.subheader("Data Populasi")
+        st.dataframe(df_pop, use_container_width=True)
+
+        st.subheader("Grafik Pertumbuhan Populasi")
+        st.line_chart(
+            df_pop.set_index("Tahun")["Populasi"]
+        )
+
+        total_growth = (
+            (df_pop["Populasi"].iloc[-1] -
+             df_pop["Populasi"].iloc[0])
+            / df_pop["Populasi"].iloc[0]
+        ) * 100
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.metric(
+                "Populasi Awal",
+                f"{df_pop['Populasi'].iloc[0]:,}"
+            )
+
+        with col2:
+            st.metric(
+                "Pertumbuhan Total",
+                f"{total_growth:.2f}%"
+            )
 
 # Halaman Analisis
 elif menu == "Analisis":
