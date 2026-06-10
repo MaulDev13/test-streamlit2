@@ -5,6 +5,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
+import helper_page
 from calculations import (
     hitung_gpp,
     hitung_1rm,
@@ -169,7 +170,7 @@ pullup_result = iterasi_pullup(pu_rep, bb) if pu_rep > 0 else None
 # ════════════════════════════════════════════════════════════════════════════
 # TABS
 # ════════════════════════════════════════════════════════════════════════════
-tab1, tab2, tab3, tab4 = st.tabs(["📊 GPP & Profil", "💪 Estimasi 1RM", "🔁 Iterasi Numerik", "📋 Rekomendasi Akhir"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["📊 GPP & Profil", "💪 Estimasi 1RM", "🔁 Iterasi Numerik", "📋 Rekomendasi Akhir", "📖 Panduan & Variabel"])
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -432,5 +433,18 @@ with tab4:
 - Evaluasi ulang GPP setiap **4–6 minggu**
     """)
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TAB 5 — PANDUAN & VARIABEL
+# ─────────────────────────────────────────────────────────────────────────────
+with tab5:
+    helper_page.render()
+
 st.markdown("---")
 st.caption("GPP Calculator · Epley 1RM + Fixed Point Iteration · Streamlit & Python")
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# HALAMAN HELPER — diakses via tab terpisah (diinjek ulang di bawah tabs)
+# Isi helper diletakkan di file helper_page.py dan dipanggil dari sini
+# ════════════════════════════════════════════════════════════════════════════
